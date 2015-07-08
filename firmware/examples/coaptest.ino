@@ -49,7 +49,7 @@ void setup() {
 void loop() {
     // send GET or PUT coap request to CoAP server.
     // To test, user microcoap server...etc
-    // int msgid = coap.put(IPAddress(xxx, xxx, xxx, xxx), 5683, "light", "1", 1);
+    // int msgid = coap.put(IPAddress(10, 0, 0, 1), 5683, "light", "1", 1);
     int msgid = coap.get(IPAddress(xxx, xxx, xxx, xxx), 5683, "light");
     delay(1000);
     coap.loop();
