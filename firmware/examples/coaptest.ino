@@ -2,7 +2,6 @@
 
 // CoAP server endpoint url callback
 void callback_light(CoapPacket &packet, IPAddress ip, int port);
-void callback_switch(CoapPacket &packet, IPAddress ip, int port);
 
 // CoAP client response callback
 void callback_response(CoapPacket &packet, IPAddress ip, int port);
@@ -18,14 +17,6 @@ void callback_light(CoapPacket &packet, IPAddress ip, int port) {
     coap.sendResponse(ip, port, packet.messageid, (uint8_t *)"1", 1);
 }
 
-void callback_switch(CoapPacket &packet, IPAddress ip, int port) {
-    Serial.println("[Switch]");
-    
-    // send response
-    coap.sendResponse(ip, port, packet.messageid, (uint8_t *)"CLOSE", 5);
-}
-
-
 // CoAP client response callback
 void callback_response(CoapPacket &packet, IPAddress ip, int port) {
     Serial.println("[Coap Response got]");
@@ -40,11 +31,15 @@ void callback_response(CoapPacket &packet, IPAddress ip, int port) {
 void setup() {
     Serial.begin(9600);
 
-    // add server url endpoints
+    // add server url endpoints.
+    // can add multiple endpoint urls.
+    // exp) coap.server(callback_switch, "switch");
+    //      coap.server(callback_env, "env/temp");
+    //      coap.server(callback_env, "env/humidity");
     coap.server(callback_light, "light");
-    coap.server(callback_switch, "switch");
 
-    // client response callback
+    // client response callback.
+    // this endpoint is single callback.
     coap.response(callback_response);
 
     // start coap server/client
