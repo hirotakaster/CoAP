@@ -1,4 +1,4 @@
-CoAP for Spark
+CoAP for Photon/Core
 ============
 
 <a href="http://coap.technology/" target=_blank>CoAP</a> simple server/client library for Core/Photon.
