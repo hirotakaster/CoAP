@@ -1,5 +1,5 @@
 /*
-MQTT library for Spark core
+CoAP library for Core/Photon.
 This software is released under the MIT License.
 Copyright (c) 2014 Hirotaka Niisato
 Permission is hereby granted, free of charge, to any person obtaining
