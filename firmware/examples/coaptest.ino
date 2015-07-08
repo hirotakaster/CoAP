@@ -1,4 +1,4 @@
-#include "coap.h"
+#include "coap/coap.h"
 
 // CoAP server endpoint url callback
 void callback_light(CoapPacket &packet, IPAddress ip, int port);
