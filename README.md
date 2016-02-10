@@ -1,11 +1,11 @@
-# CoAP client, server library for Spark Photon, Spark Core.
-<a href="http://coap.technology/" target=_blank>CoAP</a> simple server, client library for Particle Photon, Core.
+# CoAP client, server library for Arduino.
+<a href="http://coap.technology/" target=_blank>CoAP</a> simple server, client library for Arduino.
 
 ## Source Code
 This lightweight library source code are only 2 files. coap.cpp, coap.h.
 
 ## Example
-Some sample sketches for Spark Core and Photon included(firmware/examples/).
+Some sample sketches for Arduino included(/examples/).
 
  - coaptest.ino : simple request/response sample.
  - coapserver.ino : server endpoint url callback sample.
