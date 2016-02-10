@@ -10,19 +10,15 @@ byte mac[] = { 0x00, 0xAA, 0xBB, 0xCC, 0xDE, 0x02 };
 // CoAP client response callback
 void callback_response(CoapPacket &packet, IPAddress ip, int port);
 
+// CoAP server endpoint url callback
+void callback_light(CoapPacket &packet, IPAddress ip, int port);
+
 // UDP and CoAP class
 EthernetUDP Udp;
 Coap coap(Udp);
 
 // LED STATE
 bool LEDSTATE;
-
-// CoAP server endpoint url callback
-void callback_light(CoapPacket &packet, IPAddress ip, int port);
-
-// CoAP client response callback
-void callback_response(CoapPacket &packet, IPAddress ip, int port);
-
 
 // CoAP server endpoint URL
 void callback_light(CoapPacket &packet, IPAddress ip, int port) {
