@@ -80,3 +80,10 @@ void loop() {
     delay(1000);
     coap.loop();
 }
+
+/*
+if you change LED, req/res test with coap-client(libcoap), run following.
+coap-client -m get coap://(arduino ip addr)/light
+coap-client -e "1" -m put coap://(arduino ip addr)/light
+coap-client -e "0" -m put coap://(arduino ip addr)/light
+*/
