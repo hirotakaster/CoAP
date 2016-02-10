@@ -26,9 +26,6 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #undef min
 #undef max
 #include <map>
-#include <vector>
-#include <stdio.h>
-#include <time.h>
 
 #include "spark_wiring_string.h"
 #include "spark_wiring_usbserial.h"
