@@ -17,7 +17,7 @@ Download this source code branch zip file and extract to the Arduino libraries d
     git clone -b arduino https://github.com/hirotakaster/CoAP CoAP_library
     # restart Arduino IDE, you can find CoAP_library examples.
 
-In this exmples use CoAP server libcoap or microcoap server are easy to use for checking example. There is setting the libcoap on Ubuntu Linux. But if there don't use CoAP server(request/reseponse), following setting don't be needed.
+In this exmples need CoAP server libcoap or microcoap server for checking example program. There is setting the libcoap on Ubuntu Linux. But if there don't use CoAP server(request/reseponse), following setting don't be needed.
 
     git clone https://github.com/obgm/libcoap 
     cd libcoap/
