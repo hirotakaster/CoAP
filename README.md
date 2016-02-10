@@ -11,7 +11,7 @@ Some sample sketches for Spark Core and Photon included(firmware/examples/).
  - coapserver.ino : server endpoint url callback sample.
 
 ## How to use
-In this exmples use CoAP server libcoap or microcoap server are easy to use for checking example. There is setting the libcoap on Ubuntu Linux. But if there don't use CoAP server(request/reseponse), following setting don't be needed.
+In this exmples need CoAP server libcoap or microcoap server are easy to use for checking example. There is setting the libcoap on Ubuntu Linux. But if there don't use CoAP server(request/reseponse), following setting don't be needed.
 
     git clone https://github.com/obgm/libcoap 
     cd libcoap/
@@ -21,3 +21,7 @@ In this exmples use CoAP server libcoap or microcoap server are easy to use for 
     export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:.libs
     ./coap-server
     # next start Photon or Core, check the request/response.
+
+## Arduino compatible
+This library is Arduino compatible. That's version is <a href="https://github.com/hirotakaster/CoAP/tree/arduino">here</a>.
+
