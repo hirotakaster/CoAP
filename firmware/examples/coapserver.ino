@@ -75,7 +75,7 @@ void loop() {
     // To test, use microcoap server...etc
     // int msgid = coap.put(IPAddress(10, 0, 0, 1), 5683, "light", "1");
     Serial.println("Send Request");
-    int msgid = coap.get(IPAddress(XXX, XXX, XXX, XXX), 5683, "time");
+    int msgid = coap.get(IPAddress(0, 0, 0, 0), 5683, "time");
 
     delay(1000);
     coap.loop();
