@@ -23,5 +23,5 @@ In this exmples need CoAP server libcoap or microcoap server for check the examp
     # next start Photon or Core, check the request/response.
 
 ## Arduino compatible
-This library is Arduino compatible. That's version is <a href="https://github.com/hirotakaster/CoAP/tree/arduino">here</a>.
+This library is Arduino compatible. That's version is <a href="https://github.com/hirotakaster/CoAP-simple-library">here</a>.
 
