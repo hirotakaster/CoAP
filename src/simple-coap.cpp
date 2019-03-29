@@ -1,26 +1,10 @@
-#include "coap.h"
-
-#if defined(ARDUINO)
-#include "Arduino.h"
-#elif defined(SPARK)
+#include "simple-coap.h"
 #include "application.h"
-#endif
-
 #define LOGGING
 
 
-Coap::Coap(
-#if defined(ARDUINO)
-    UDP& udp
-#endif
-) {
-
-#if defined(ARDUINO)
-    this->_udp = &udp;
-#elif defined(SPARK)
+Coap::Coap() {
     this->_udp = new UDP();
-#endif
-
 }
 
 bool Coap::start() {
@@ -262,19 +246,11 @@ bool Coap::loop() {
                     url += urlname;
                   }
             }
-#if defined(ARDUINO)
-            if (!uri.find(url)) {
-#elif defined(SPARK)
             if (uri.find(url) == uri.end()) {
-#endif
                 sendResponse(_udp->remoteIP(), _udp->remotePort(), packet.messageid, NULL, 0,
                         COAP_NOT_FOUNT, COAP_NONE, NULL, 0);
             } else {
-#if defined(ARDUINO)
-                uri.find(url)(packet, _udp->remoteIP(), _udp->remotePort());
-#elif defined(SPARK)
                 uri[url](packet, _udp->remoteIP(), _udp->remotePort());
-#endif
             }
         }
 

@@ -1,4 +1,4 @@
-#include "coap/coap.h"
+#include "simple-coap.h"
 
 // CoAP server endpoint url callback
 void callback_light(CoapPacket &packet, IPAddress ip, int port);
@@ -12,23 +12,23 @@ bool LEDSTATE;
 // CoAP server endpoint URL
 void callback_light(CoapPacket &packet, IPAddress ip, int port) {
     Serial.println("[Light] ON/OFF");
-    
+
     // send response
     char p[packet.payloadlen + 1];
     memcpy(p, packet.payload, packet.payloadlen);
     p[packet.payloadlen] = NULL;
-    
+
     String message(p);
 
     if (message.equals("0"))
         LEDSTATE = false;
     else if(message.equals("1"))
         LEDSTATE = true;
-        
+
     if (LEDSTATE) {
         coap.sendResponse(ip, port, packet.messageid, "1");
         RGB.color(255, 255, 255);
-    } else { 
+    } else {
         coap.sendResponse(ip, port, packet.messageid, "0");
         RGB.color(0, 0, 0);
     }
@@ -47,7 +47,7 @@ void callback_response(CoapPacket &packet, IPAddress ip, int port) {
 
 void setup() {
     Serial.begin(9600);
-    
+
     // LED Controll
     RGB.control(true);
     RGB.color(255, 255, 255);
@@ -72,7 +72,7 @@ void setup() {
 
 void loop() {
     // send GET or PUT coap request to CoAP server.
-    // To test, use microcoap server...etc
+    // for test, use microcoap server...etc
     // int msgid = coap.put(IPAddress(10, 0, 0, 1), 5683, "light", "1");
     Serial.println("Send Request");
     int msgid = coap.get(IPAddress(0, 0, 0, 0), 5683, "time");

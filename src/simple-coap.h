@@ -9,7 +9,7 @@ without limitation the rights to use, copy, modify, merge, publish,
 distribute, sublicense, and/or sell copies of the Software, and to
 permit persons to whom the Software is furnished to do so, subject to
 the following conditions:
-   
+
 The above copyright notice and this permission notice shall be
 included in all copies or substantial portions of the Software.
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
@@ -23,10 +23,6 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #ifndef __SIMPLE_COAP_H__
 #define __SIMPLE_COAP_H__
 
-#if defined(ARDUINO)
-#include "Udp.h"
-#define MAX_CALLBACK 10
-#elif defined(SPARK)
 #undef min
 #undef max
 #include <map>
@@ -34,7 +30,6 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #include "spark_wiring_usbserial.h"
 #include "spark_wiring_udp.h"
 #include "spark_wiring_ipaddress.h"
-#endif
 
 #define COAP_HEADER_SIZE 4
 #define COAP_OPTION_HEADER_SIZE 1
@@ -127,53 +122,16 @@ class CoapPacket {
     uint8_t *payload;
     uint8_t payloadlen;
     uint16_t messageid;
-    
+
     uint8_t optionnum;
     CoapOption options[MAX_OPTION_NUM];
 };
 typedef void (*callback)(CoapPacket &, IPAddress, int);
 
-#if defined(ARDUINO)
-class CoapUri {
-    private:
-        String u[MAX_CALLBACK];
-        callback c[MAX_CALLBACK];
-    public:
-        CoapUri() {
-            for (int i = 0; i < MAX_CALLBACK; i++) {
-                u[i] = "";
-                c[i] = NULL;
-            }
-        };
-        void add(callback call, String url) {
-            for (int i = 0; i < MAX_CALLBACK; i++)
-                if (c[i] != NULL && u[i].equals(url)) {
-                    c[i] = call;
-                    return ;
-                }
-            for (int i = 0; i < MAX_CALLBACK; i++) {
-                if (c[i] == NULL) {
-                    c[i] = call;
-                    u[i] = url;
-                    return;
-                }
-            }
-        };
-        callback find(String url) {
-            for (int i = 0; i < MAX_CALLBACK; i++) if (c[i] != NULL && u[i].equals(url)) return c[i];
-            return NULL;
-        } ;
-};
-#endif
-
 class Coap {
     private:
         UDP *_udp;
-#if defined(ARDUINO)
-        CoapUri uri;
-#elif defined(SPARK)
         std::map<String, callback> uri;
-#endif
         callback resp;
         int _port;
 
@@ -182,25 +140,17 @@ class Coap {
         int parseOption(CoapOption *option, uint16_t *running_delta, uint8_t **buf, size_t buflen);
 
     public:
-        Coap(
-#if defined(ARDUINO)
-            UDP& udp
-#endif
-        );
+        Coap();
         bool start();
         bool start(int port);
         void response(callback c) { resp = c; }
-        
-#if defined(ARDUINO)
-        void server(callback c, String url) { uri.add(c, url); }
-#elif defined(SPARK)
+
         void server(callback c, String url) { uri[url]  = c; }
-#endif
         uint16_t sendResponse(IPAddress ip, int port, uint16_t messageid);
         uint16_t sendResponse(IPAddress ip, int port, uint16_t messageid, char *payload);
         uint16_t sendResponse(IPAddress ip, int port, uint16_t messageid, char *payload, int payloadlen);
         uint16_t sendResponse(IPAddress ip, int port, uint16_t messageid, char *payload, int payloadlen, COAP_RESPONSE_CODE code, COAP_CONTENT_TYPE type, uint8_t *token, int tokenlen);
-        
+
         uint16_t get(IPAddress ip, int port, char *url);
         uint16_t put(IPAddress ip, int port, char *url, char *payload);
         uint16_t put(IPAddress ip, int port, char *url, char *payload, int payloadlen);
@@ -208,5 +158,4 @@ class Coap {
 
         bool loop();
 };
-
 #endif

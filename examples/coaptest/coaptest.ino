@@ -1,4 +1,4 @@
-#include "coap/coap.h"
+#include "simple-coap.h"
 
 // CoAP client response callback
 void callback_response(CoapPacket &packet, IPAddress ip, int port);
@@ -17,7 +17,7 @@ void callback_response(CoapPacket &packet, IPAddress ip, int port) {
 
 void setup() {
     Serial.begin(9600);
-    
+
     // client response callback.
     // this endpoint is single callback.
     Serial.println("Setup Response Callback");
@@ -29,7 +29,7 @@ void setup() {
 
 void loop() {
     // send GET or PUT coap request to CoAP server.
-    // To test, use libcoap, microcoap server...etc
+    // for test, use libcoap, microcoap server...etc
     // int msgid = coap.put(IPAddress(10, 0, 0, 1), 5683, "light", "1");
     Serial.println("Send Request");
     int msgid = coap.get(IPAddress(0, 0, 0, 0), 5683, "time");
